@@ -2,6 +2,12 @@
 
 一个零依赖的纯静态打卡网站：新增项目（如喝水 8 杯、跑步 5 公里、阅读 30 分钟），每天填写实际值并打钩完成；月历查看每天完成情况；系统自动给出每日评价与月度评价。
 
+## 在线访问
+
+- GitHub Pages：<https://dan032366.github.io/shadoudou-habit-tracker/>
+- 仓库地址：<https://github.com/dan032366/shadoudou-habit-tracker>
+- iPhone 安装：用 Safari 打开上面的 Pages 地址 → 分享 → 添加到主屏幕（详见 `iOS安装说明.txt`）
+
 ## 运行方式
 
 - 直接双击 `index.html` 即可在浏览器中打开；

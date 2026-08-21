@@ -22,8 +22,9 @@
 - 说明：此方式为 http，可正常"添加到主屏幕"和使用，但不支持离线缓存。
 
 方式二：公网 HTTPS 部署（推荐，支持离线使用）
-- 把本文件夹上传到任意支持 HTTPS 的静态托管平台（如 GitHub Pages、Netlify、Vercel、云服务器等）。
-- 用 iPhone Safari 打开 HTTPS 网址，再按上面步骤添加到主屏幕。
+- 本项目已部署到 GitHub Pages，直接使用下面的地址即可：
+    https://dan032366.github.io/shadoudou-habit-tracker/
+- 用 iPhone Safari 打开该 HTTPS 网址，再按上面步骤添加到主屏幕。
 - HTTPS 下会自动启用离线缓存，断网也能打开应用。
 
 【数据说明】
