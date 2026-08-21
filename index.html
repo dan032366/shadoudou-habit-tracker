@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>傻豆豆的打卡日常</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌱%3C/text%3E%3C/svg%3E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="傻豆豆打卡">
+  <meta name="theme-color" content="#f5efe0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="save-status" class="save-badge" role="status"></div>
+
+  <header class="site-header">
+    <div class="site-title">
+      <span class="seal" aria-hidden="true">豆</span>
+      <h1>傻豆豆的打卡日常</h1>
+    </div>
+    <p class="site-subtitle">日拱一卒，功不唐捐</p>
+  </header>
+
+  <main class="container">
+    <!-- 今日摘要 -->
+    <section id="today-card" class="card today-card" aria-label="今日摘要">
+      <div class="today-top">
+        <span class="today-label">今日进度</span>
+        <span id="today-count" class="today-count">0 / 0</span>
+      </div>
+      <div class="progress"><div id="today-bar" class="bar"></div></div>
+      <p id="today-rate" class="today-rate">新增项目后开始打卡吧</p>
+      <p id="today-eval" class="eval-text"></p>
+    </section>
+
+    <!-- 每日打卡 -->
+    <section id="day-card" class="card day-card">
+      <div class="card-head">
+        <div>
+          <h2 id="day-title">今天</h2>
+          <p id="day-subtitle" class="muted"></p>
+        </div>
+        <div class="head-actions">
+          <button id="go-today-btn" class="btn ghost hidden" type="button">回到今天</button>
+          <button id="add-habit-btn" class="btn primary" type="button">＋ 新增项目</button>
+        </div>
+      </div>
+      <p id="day-eval" class="eval-text"></p>
+      <p id="day-progress-line" class="day-progress-line muted"></p>
+      <div id="habit-list" class="habit-list"></div>
+      <div id="empty-habits" class="empty hidden">
+        <p class="empty-emoji">📜</p>
+        <p>还没有项目，点击"新增项目"创建第一个吧</p>
+        <button id="empty-add-btn" class="btn primary" type="button">＋ 新增项目</button>
+      </div>
+    </section>
+
+    <!-- 月度回顾 -->
+    <section id="calendar-card" class="card calendar-card">
+      <div class="card-head">
+        <h2>月度回顾</h2>
+        <div class="month-nav">
+          <button id="prev-month" class="btn icon" type="button" aria-label="上个月">‹</button>
+          <span id="month-title"></span>
+          <button id="next-month" class="btn icon" type="button" aria-label="下个月">›</button>
+        </div>
+      </div>
+      <div id="month-eval" class="month-eval"></div>
+      <div class="calendar">
+        <div class="weekdays">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+      </div>
+      <div class="legend">
+        <span class="legend-item"><i class="swatch full"></i>全部完成</span>
+        <span class="legend-item"><i class="swatch partial"></i>部分完成</span>
+        <span class="legend-item"><i class="swatch none"></i>未打卡</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">傻豆豆的打卡日常 v3</footer>
+
+  <!-- 项目表单弹窗 -->
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="card-head">
+        <h2 id="modal-title">新增项目</h2>
+        <button id="modal-close" class="btn icon" type="button" aria-label="关闭">✕</button>
+      </div>
+      <form id="habit-form">
+        <p id="start-hint" class="start-hint muted hidden"></p>
+        <div class="field">
+          <span>项目图标</span>
+          <div id="icon-presets" class="icon-presets"></div>
+          <div class="icon-tools">
+            <button type="button" id="icon-upload-btn" class="btn ghost">上传图片</button>
+            <input type="file" id="icon-file" accept="image/*" hidden>
+            <span id="icon-preview" class="icon-preview hidden"></span>
+            <span id="icon-upload-name" class="muted"></span>
+          </div>
+        </div>
+        <label class="field">
+          <span>名称</span>
+          <input type="text" id="f-name" placeholder="例如：喝水" autocomplete="off" required>
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>每日目标</span>
+            <input type="number" id="f-target" min="0.1" step="any" placeholder="8" required>
+          </label>
+          <label class="field">
+            <span>单位</span>
+            <input type="text" id="f-unit" placeholder="杯 / 公里 / 分钟" autocomplete="off">
+          </label>
+        </div>
+        <label class="field">
+          <span>需要完成的天数</span>
+          <input type="number" id="f-total-days" min="1" step="1" placeholder="留空 = 无限天数" autocomplete="off">
+        </label>
+        <div class="modal-actions">
+          <button type="button" id="f-cancel" class="btn ghost">取消</button>
+          <button type="submit" id="f-submit" class="btn primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
