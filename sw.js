@@ -1,4 +1,4 @@
-const CACHE = 'shadoudou-v1';
+const CACHE = 'shadoudou-v2';
 const ASSETS = [
   './',
   './index.html',
